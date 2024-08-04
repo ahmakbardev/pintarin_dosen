@@ -23,7 +23,7 @@ jobs:
           script: |
             cd /home/u128493830/domains/pintarin.id
             git clone https://github.com/ahmakbardev/pintarin_dosen.git
-            cd /home/u128493830/domains/inkalink.fun/pintarin_dosen
+            cd /home/u128493830/domains/pintarin.id/pintarin_dosen
             chmod +x ~/bin/composer
             echo "export PATH=$HOME/bin:$PATH" >> ~/.bash_profile
             source ~/.bash_profile
@@ -36,5 +36,4 @@ jobs:
             php artisan route:clear
             php artisan config:cache
             php artisan optimize
-            rm -rf /home/u128493830/domains/pintarin.id/public_html/admin
-            ln -s /home/u128493830/domains/pintarin.id/inkalink_admin/public /home/u128493830/domains/pintarin.id/public_html/admin
+            ln -s /home/u128493830/domains/pintarin.id/inkalink_admin/public /home/u128493830/domains/pintarin.id/public_html/dosen
