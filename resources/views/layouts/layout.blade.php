@@ -40,7 +40,7 @@
     <script>
         feather.replace();
         const dosenId = {{ Auth::id() }};
-        const pusher = new Pusher('b13119368dad85510365', {
+        const pusher = new Pusher('acd4ddbbe09a210bb25e', {
             cluster: 'ap1',
             authEndpoint: '/pusher/auth',
             auth: {
