@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{{ asset('assets/logo/logo_fix.png') }}" type="image/x-icon">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Pintarin</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <!-- SimpleBar CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @yield('assets')

@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\DiskusiController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ModulController;
 use App\Http\Controllers\PostTestController;
+use App\Http\Controllers\PusherAuthController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -106,6 +109,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/{topic}/modul/{id}/task/{task_id}/edit', [TaskController::class, 'edit'])->name('classwork.prinsip.tugas.edit');
     Route::put('/{topic}/modul/{id}/task/{task_id}', [TaskController::class, 'update'])->name('classwork.prinsip.tugas.update');
     Route::post('/task/upload-image', [TaskController::class, 'uploadImage'])->name('task.upload.image');
+    // Diskusi
+    Route::get('/diskusi', [DiskusiController::class, 'index'])->name('diskusi');
+    Route::get('/diskusi/chat/{dosen_id}/{user_id}', [DiskusiController::class, 'chat'])->name('diskusi.chat');
+
+    // Chat
+    Route::post('/send-message', [ChatController::class, 'sendMessage']);
+    Route::get('/fetch-messages/{dosen_id}/{user_id}', [ChatController::class, 'fetchMessages']);
+
+    // Pusher Auth
+    Route::post('/pusher/auth', [PusherAuthController::class, 'authenticate']);
 });
 
 
@@ -123,14 +136,8 @@ Route::get('/students/detail', function () {
     return view('students.detail.index');
 })->name('students.detail');
 
-// Diskusi
-Route::get('/diskusi', function () {
-    return view('diskusi.index');
-})->name('diskusi');
 
-Route::get('/diskusi/chat', function () {
-    return view('diskusi.chat.index');
-})->name('diskusi.chat');
+
 
 // nilai
 Route::get('/nilai', function () {
