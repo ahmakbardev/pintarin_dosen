@@ -36,5 +36,4 @@ jobs:
             php artisan route:clear
             php artisan config:cache
             php artisan optimize
-            rm -rf /home/u128493830/domains/pintarin.id/public_html/dosen
             ln -s /home/u128493830/domains/pintarin.id/pintarin_dosen/public/* /home/u128493830/domains/pintarin.id/public_html/dosen
