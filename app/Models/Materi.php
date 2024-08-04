@@ -9,10 +9,18 @@ class Materi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'modul_id'];
-
     public function modul()
     {
         return $this->belongsTo(Modul::class);
+    }
+
+    protected $fillable = [
+        'title', 'content', 'url', 'file', 'modul_id', 'dosen_id'
+    ];
+
+    // Relasi dengan dosen
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class);
     }
 }

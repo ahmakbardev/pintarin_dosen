@@ -11,6 +11,7 @@ class PostTest extends Model
 
     protected $fillable = [
         'modul_id',
+        'dosen_id',
         'question',
         'answers',
         'correct_answer',
@@ -20,4 +21,9 @@ class PostTest extends Model
     protected $casts = [
         'answers' => 'array',
     ];
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class);
+    }
 }

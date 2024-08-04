@@ -5,20 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Modul;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class TaskController extends Controller
 {
     public function create($topic, $id)
     {
-        $modul = Modul::findOrFail($id);
+        $modul = Modul::where('id', $id)->where('dosen_id', Auth::id())->firstOrFail();
         return view('classwork.topic.tugas.create', compact('modul', 'topic'));
     }
 
     public function store(Request $request, $topic, $id)
     {
-
-        // dd($request->all());
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -28,6 +27,7 @@ class TaskController extends Controller
 
         $task = new Task();
         $task->modul_id = $id;
+        $task->dosen_id = Auth::id();
         $task->title = $request->title;
         $task->description = $request->description;
         $task->kriteria_penilaian = $request->kriteria_penilaian;
@@ -40,8 +40,8 @@ class TaskController extends Controller
 
     public function edit($topic, $id, $task_id)
     {
-        $modul = Modul::findOrFail($id);
-        $task = Task::findOrFail($task_id);
+        $modul = Modul::where('id', $id)->where('dosen_id', Auth::id())->firstOrFail();
+        $task = Task::where('id', $task_id)->where('dosen_id', Auth::id())->firstOrFail();
         return view('classwork.topic.tugas.edit', compact('modul', 'task', 'topic'));
     }
 
@@ -54,7 +54,7 @@ class TaskController extends Controller
             'due_date' => 'nullable|date',
         ]);
 
-        $task = Task::findOrFail($task_id);
+        $task = Task::where('id', $task_id)->where('dosen_id', Auth::id())->firstOrFail();
         $task->title = $request->title;
         $task->description = $request->description;
         $task->kriteria_penilaian = $request->kriteria_penilaian;

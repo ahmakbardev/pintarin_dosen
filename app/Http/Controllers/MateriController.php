@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Materi;
 use App\Models\Modul;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class MateriController extends Controller
@@ -12,7 +13,7 @@ class MateriController extends Controller
     // Method create untuk menampilkan form tambah materi
     public function create($topic, $id)
     {
-        $modul = Modul::findOrFail($id);
+        $modul = Modul::where('id', $id)->where('dosen_id', Auth::id())->firstOrFail();
         return view('classwork.topic.materi.create', compact('modul', 'topic'));
     }
 
@@ -27,6 +28,7 @@ class MateriController extends Controller
 
         $materi = new Materi();
         $materi->modul_id = $id;
+        $materi->dosen_id = Auth::id();
         $materi->title = $request->title;
         $materi->content = $request->content;
         $materi->url = $request->url;
@@ -70,11 +72,10 @@ class MateriController extends Controller
         return response()->json(['error' => 'Gagal mengunggah file'], 400);
     }
 
-
     public function edit($topic, $id, $materi_id)
     {
-        $modul = Modul::findOrFail($id);
-        $materi = Materi::findOrFail($materi_id);
+        $modul = Modul::where('id', $id)->where('dosen_id', Auth::id())->firstOrFail();
+        $materi = Materi::where('id', $materi_id)->where('dosen_id', Auth::id())->firstOrFail();
         return view('classwork.topic.materi.edit', compact('modul', 'materi', 'topic'));
     }
 
@@ -87,7 +88,7 @@ class MateriController extends Controller
             'file' => 'nullable|string',
         ]);
 
-        $materi = Materi::findOrFail($materi_id);
+        $materi = Materi::where('id', $materi_id)->where('dosen_id', Auth::id())->firstOrFail();
         $materi->title = $request->title;
         $materi->content = $request->content; // Ensure content is correctly assigned
         $materi->url = $request->url;
@@ -101,7 +102,7 @@ class MateriController extends Controller
     // Method destroy untuk menghapus materi dari database
     public function destroy($topic, $id, $materi_id)
     {
-        $materi = Materi::findOrFail($materi_id);
+        $materi = Materi::where('id', $materi_id)->where('dosen_id', Auth::id())->firstOrFail();
         $materi->delete();
 
         return redirect()->route('classwork.topic.modul', ['topic' => $topic, 'id' => $id])

@@ -9,6 +9,16 @@ class Modul extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'topic',
+        'dosen_id', // Pastikan kolom ini ada di $fillable
+    ];
 
-    protected $fillable = ['name', 'topic'];
+    // Jika ada relasi dengan model Dosen, tambahkan di sini
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class);
+    }
 }

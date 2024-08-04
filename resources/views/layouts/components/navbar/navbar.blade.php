@@ -6,7 +6,6 @@
     <div class="breadcrumb hidden md:flex gap-10 items-center justify-center w-full text-white">
         <a href="{{ route('home') }}" class="{{ request()->is('home*') ? 'font-bold' : '' }}">Classwork</a>
         <a href="{{ route('students') }}" class="{{ request()->is('students.*') ? 'font-bold' : '' }}">Students</a>
-        {{-- <a href="{{ route('track') }}" class="{{ request()->is('track*') ? 'font-bold' : '' }}">Track</a> --}}
         <a href="{{ route('diskusi') }}" class="{{ request()->is('diskusi*') ? 'font-bold' : '' }}">Diskusi</a>
         <a href="{{ route('track') }}" class="{{ request()->is('track*') ? 'font-bold' : '' }}">Track</a>
         <a href="{{ route('nilai') }}" class="{{ request()->is('nilai*') ? 'font-bold' : '' }}">Nilai</a>
@@ -21,7 +20,11 @@
             class="hidden absolute right-0 top-[75px] mt-2 w-48 bg-white rounded-md shadow-lg py-2 transition-opacity duration-300 ease-in-out transform opacity-0 translate-y-5">
             <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile</a>
             <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Settings</a>
-            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Logout</a>
+            <form action="{{ route('logout') }}" method="POST"
+                class="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                @csrf
+                <button type="submit" class="w-full text-left">Logout</button>
+            </form>
         </div>
     </div>
     <button id="burger" class="md:hidden flex flex-col gap-1.5 p-3">
@@ -36,7 +39,6 @@
     <a href="{{ route('home') }}" class="py-2 {{ request()->is('home*') ? 'font-bold underline' : '' }}">Classwork</a>
     <a href="{{ route('students') }}"
         class="py-2 {{ request()->is('students*') ? 'font-bold underline' : '' }}">Students</a>
-    {{-- <a href="{{ route('track') }}" class="py-2 {{ request()->is('track*') ? 'font-bold underline' : '' }}">Track</a> --}}
     <a href="{{ route('diskusi') }}"
         class="py-2 {{ request()->is('diskusi*') ? 'font-bold underline' : '' }}">Diskusi</a>
     <a href="{{ route('nilai') }}" class="py-2 {{ request()->is('nilai*') ? 'font-bold underline' : '' }}">Nilai</a>

@@ -9,7 +9,14 @@ class Task extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['modul_id', 'title', 'description', 'kriteria_penilaian', 'due_date'];
+    protected $fillable = [
+        'modul_id',
+        'dosen_id',
+        'title',
+        'description',
+        'kriteria_penilaian',
+        'due_date',
+    ];
 
     protected $casts = [
         'kriteria_penilaian' => 'array',
@@ -19,5 +26,10 @@ class Task extends Model
     public function modul()
     {
         return $this->belongsTo(Modul::class);
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(Dosen::class);
     }
 }

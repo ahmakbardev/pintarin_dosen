@@ -5,18 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Modul;
 use App\Models\PostTest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostTestController extends Controller
 {
     public function create($topic, $modulId)
     {
-        $modul = Modul::findOrFail($modulId);
+        $modul = Modul::where('id', $modulId)->where('dosen_id', Auth::id())->firstOrFail();
         return view('classwork.topic.post-test.create', compact('modul', 'topic'));
     }
 
     public function store(Request $request, $topic, $modulId)
     {
-        // dd($request->all());
         $request->validate([
             'questions' => 'required|array',
             'questions.*.question' => 'required|string',
@@ -28,6 +28,7 @@ class PostTestController extends Controller
         foreach ($request->questions as $questionData) {
             PostTest::create([
                 'modul_id' => $modulId,
+                'dosen_id' => Auth::id(),
                 'question' => $questionData['question'],
                 'answers' => json_decode($questionData['answers']),
                 'correct_answer' => $questionData['correct_answer'],
@@ -41,8 +42,8 @@ class PostTestController extends Controller
 
     public function edit($topic, $modulId)
     {
-        $modul = Modul::findOrFail($modulId);
-        $postTests = PostTest::where('modul_id', $modulId)->get();
+        $modul = Modul::where('id', $modulId)->where('dosen_id', Auth::id())->firstOrFail();
+        $postTests = PostTest::where('modul_id', $modulId)->where('dosen_id', Auth::id())->get();
 
         // Decode JSON answers for each post test
         foreach ($postTests as $test) {
@@ -56,8 +57,6 @@ class PostTestController extends Controller
 
     public function update(Request $request, $topic, $modul, $id)
     {
-
-        // dd($request->all());
         $request->validate([
             'questions' => 'required|array',
             'questions.*.question' => 'required|string',
@@ -69,7 +68,7 @@ class PostTestController extends Controller
         foreach ($request->questions as $questionData) {
             if (isset($questionData['id'])) {
                 // Update existing question
-                $postTest = PostTest::findOrFail($questionData['id']);
+                $postTest = PostTest::where('id', $questionData['id'])->where('dosen_id', Auth::id())->firstOrFail();
                 $postTest->update([
                     'question' => $questionData['question'],
                     'answers' => json_decode($questionData['answers']),
@@ -80,6 +79,7 @@ class PostTestController extends Controller
                 // Create new question
                 PostTest::create([
                     'modul_id' => $modul,
+                    'dosen_id' => Auth::id(),
                     'question' => $questionData['question'],
                     'answers' => json_decode($questionData['answers']),
                     'correct_answer' => $questionData['correct_answer'],
