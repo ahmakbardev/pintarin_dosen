@@ -24,6 +24,7 @@ jobs:
             cd /home/u128493830/domains/pintarin.id
             git clone https://github.com/ahmakbardev/pintarin_dosen.git
             cd /home/u128493830/domains/pintarin.id/pintarin_dosen
+            git pull
             chmod +x ~/bin/composer
             echo "export PATH=$HOME/bin:$PATH" >> ~/.bash_profile
             source ~/.bash_profile
