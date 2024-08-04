@@ -28,6 +28,9 @@ jobs:
             chmod +x ~/bin/composer
             echo "export PATH=$HOME/bin:$PATH" >> ~/.bash_profile
             source ~/.bash_profile
+            git add .
+            git commit -m "stash"
+            git stash
             which composer
             composer --version
             composer install
