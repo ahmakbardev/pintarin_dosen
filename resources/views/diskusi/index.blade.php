@@ -9,14 +9,15 @@
             @include('diskusi.components.select-urutan')
         </div>
 
-        <div class="flex flex-col gap-5 pb-10">
+        <div id="discussionList" class="flex flex-col gap-5 pb-10">
             @foreach ($discussions as $discussion)
                 <a href="{{ route('diskusi.chat', ['dosen_id' => $discussion->dosen_id, 'user_id' => $discussion->user_id]) }}"
-                    class="shadow-md py-5 px-5 rounded-lg hover:scale-[1.01] hover:shadow-lg transition-all ease-in-out">
+                    class="discussion-item shadow-md py-5 px-5 rounded-lg hover:scale-[1.01] hover:shadow-lg transition-all ease-in-out"
+                    data-dosen-id="{{ $discussion->dosen_id }}" data-user-id="{{ $discussion->user_id }}">
                     <div class="flex flex-col gap-5">
                         <div class="flex gap-5 items-center">
                             <div class="flex gap-4">
-                                <img src="{{ $discussion->user_profile_pic ? asset('assets/images/profile/' . $discussion->user_profile_picture) : asset('assets/images/profile/default.png') }}"
+                                <img src="{{ $discussion->user_profile_pic ? asset('assets/images/profile/' . $discussion->user_profile_pic) : asset('assets/images/profile/default.png') }}"
                                     alt="">
                                 <div class="flex justify-between items-center w-full">
                                     <div class="flex flex-col">

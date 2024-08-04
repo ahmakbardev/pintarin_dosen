@@ -30,7 +30,7 @@ class DiskusiController extends Controller
     public function chat($dosen_id, $user_id)
     {
         $user = DB::table('users')->where('id', $user_id)->first();
-        $dosen = DB::table('users')->where('id', $dosen_id)->first();
+        $dosen = DB::table('dosens')->where('id', $dosen_id)->first();
         $discussion = DB::table('chats')
             ->where('dosen_id', $dosen_id)
             ->where('user_id', $user_id)
