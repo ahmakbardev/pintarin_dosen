@@ -1,111 +1,151 @@
-<div id="tab-pengembangan" class="tab-pane hidden">
-    <!-- Accordion for Pengembangan Asesmen -->
+<div id="tab-pengembangan" class="tab-pane hidden h-screen">
+    <!-- Accordion for Pengembangan -->
     <div class="accordion" id="accordionPengembangan">
-        <!-- Accordion Item 1 -->
-        <div class="accordion-item mb-3" id="accordion-item-1-pengembangan">
-            <h2 class="accordion-header bg-primary text-white rounded-t-xl" id="headingOnePengembangan">
-                <button
-                    class="accordion-button flex justify-between items-center w-full p-4 text-left bg-gray-100 border-b transition-all ease-in-out focus:outline-none"
-                    type="button" data-toggle="collapse" data-target="#collapseOnePengembangan" aria-expanded="true">
-                    <div class="flex flex-col w-full">
-                        <span>Asesmen 1</span>
-                        <span class="text-lg font-medium">Deskripsi Asesmen 1</span>
-                        <div class="flex items-center mt-2 w-1/3">
-                            <div class="w-full bg-gray-300 rounded-full bg-white h-2.5 dark:bg-gray-700 relative">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%;"></div>
+        @foreach ($progressPengembangan as $prog)
+            <div class="accordion-item mb-3" id="accordion-item-{{ $prog->module_id }}-pengembangan">
+                <h2 class="accordion-header bg-primary text-white rounded-t-xl"
+                    id="headingPengembangan-{{ $prog->module_id }}">
+                    <button
+                        class="accordion-button flex justify-between items-center w-full p-4 text-left bg-gray-100 border-b transition-all ease-in-out focus:outline-none"
+                        type="button" data-toggle="collapse" data-target="#collapsePengembangan-{{ $prog->module_id }}"
+                        aria-expanded="{{ $loop->first ? 'true' : 'false' }}">
+                        <div class="flex flex-col w-full">
+                            <span>Modul {{ $loop->iteration }}</span>
+                            <span class="text-lg font-medium">{{ $prog->module_name }}</span>
+                            <div class="flex items-center mt-2 w-1/3">
+                                <div class="w-full bg-gray-300 rounded-full bg-white h-2.5 dark:bg-gray-700 relative">
+                                    <div class="bg-blue-600 h-2.5 rounded-full"
+                                        style="width: {{ $prog->completion_percentage }}%;"></div>
+                                </div>
+                                <span class="ml-2 text-sm font-medium">{{ $prog->completion_percentage }}%</span>
                             </div>
-                            <span class="ml-2 text-sm font-medium">75%</span>
                         </div>
-                    </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="feather feather-chevron-down transition-transform"
+                            id="iconPengembangan-{{ $prog->module_id }}">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </h2>
+                <div id="collapsePengembangan-{{ $prog->module_id }}"
+                    class="accordion-collapse rounded-b-xl border-x border-b border-grayScale-300 collapse {{ $loop->first ? 'show' : '' }} text-black"
+                    aria-labelledby="headingPengembangan-{{ $prog->module_id }}">
+                    <div class="accordion-body p-4 flex flex-col">
+                        <div class="flex flex-col gap-3">
+                            @foreach ($prog->materis as $materi)
+                                <div class="flex justify-between items-center group hover:ring-1 p-2 rounded-lg">
+                                    <div class="flex flex-col">
+                                        <h4>Materi {{ $loop->iteration }}</h4>
+                                        <h2 class="text-lg font-medium">{{ $materi->title }}</h2>
+                                    </div>
+                                    <div class="relative">
+                                        @if ($materi->completed)
+                                            <img src="{{ asset('assets/icons/check_circle.svg') }}" alt="Check Circle"
+                                                class="cursor-pointer">
+                                            <div
+                                                class="absolute left-1/2 bottom-full mb-2 w-max px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transform -translate-x-1/2 transition-opacity duration-300">
+                                                Selesai
+                                                <div
+                                                    class="absolute left-1/2 top-full w-0 h-0 border-t-8 border-t-black border-r-8 border-r-transparent border-l-8 border-l-transparent transform -translate-x-1/2">
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div
+                                                class="absolute left-1/2 bottom-full mb-2 w-max px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transform -translate-x-1/2 transition-opacity duration-300">
+                                                Belum Selesai
+                                                <div
+                                                    class="absolute left-1/2 top-full w-0 h-0 border-t-8 border-t-black border-r-8 border-r-transparent border-l-8 border-l-transparent transform -translate-x-1/2">
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
 
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-chevron-down transition-transform"
-                        id="iconOnePengembangan">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-            </h2>
-            <div id="collapseOnePengembangan"
-                class="accordion-collapse rounded-b-xl border-x border-b border-grayScale-300 collapse show text-black"
-                aria-labelledby="headingOnePengembangan">
-                <div class="accordion-body p-4 flex flex-col">
-                    <h1>aaaa</h1>
-                    <strong>This is the first item's accordion body.</strong> It is shown by default, until
-                    the collapse plugin adds the appropriate classes that we use to style each element.
-                </div>
-            </div>
-        </div>
-        <!-- Accordion Item 2 -->
-        <div class="accordion-item mb-3 rounded-b-xl" id="accordion-item-2-pengembangan">
-            <h2 class="accordion-header bg-primary text-white rounded-t-xl" id="headingTwoPengembangan">
-                <button
-                    class="accordion-button flex justify-between items-center w-full p-4 text-left bg-gray-100 border-b transition-all ease-in-out focus:outline-none collapsed"
-                    type="button" data-toggle="collapse" data-target="#collapseTwoPengembangan" aria-expanded="false">
-                    <div class="flex flex-col w-full">
-                        <span>Asesmen 2</span>
-                        <span class="text-lg font-medium">Deskripsi Asesmen 2</span>
-                        <div class="flex items-center mt-2 w-1/3">
-                            <div class="w-full bg-gray-300 rounded-full bg-white h-2.5 dark:bg-gray-700 relative">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%;"></div>
+                            <div class="px-2 py-4">
+                                <div class="border-b border-grayScale-400"></div>
                             </div>
-                            <span class="ml-2 text-sm font-medium">75%</span>
+
+                            {{-- Display Post Test Score only if Post Test exists --}}
+                            @if ($prog->post_test_exists)
+                                <div class="flex justify-between items-center group hover:ring-1 px-2 py-4 rounded-lg">
+                                    <div class="flex flex-col">
+                                        <h2 class="text-lg font-medium">Post Test</h2>
+                                    </div>
+                                    <div class="relative">
+                                        <p class="text-lg">{{ $prog->post_test_score }} / 100</p>
+                                    </div>
+                                </div>
+
+                                <div class="px-2 py-4">
+                                    <div class="border-b border-grayScale-400"></div>
+                                </div>
+                            @endif
+
+                            {{-- Display Task Progress --}}
+                            <div class="flex flex-col">
+                                @foreach ($prog->tasks as $task)
+                                    <a href="{{ route('nilai.detail', ['modul_id' => $prog->module_id, 'tugas_progress_id' => $task->tugas_progress_id]) }}"
+                                        class="block">
+                                        <div
+                                            class="flex justify-between items-center group hover:ring-1 px-2 py-4 rounded-lg relative">
+                                            <div class="flex flex-col">
+                                                <h2 class="text-lg font-medium">Tugas {{ $loop->iteration }}</h2>
+                                                <p>{!! $task->description !!}</p>
+                                            </div>
+                                            <div class="relative">
+                                                @if ($task->pdf_path || $task->ppt_path)
+                                                    @if ($task->nilai)
+                                                        {{-- Tampilkan rata-rata nilai jika sudah dinilai --}}
+                                                        <p class="text-sm text-green-500 font-semibold">
+                                                            Rata-rata Nilai:
+                                                            @php
+                                                                $nilaiData = json_decode($task->nilai, true);
+                                                                $totalNilai = array_sum(
+                                                                    array_column($nilaiData, 'nilai'),
+                                                                );
+                                                                $jumlahKriteria = count($nilaiData);
+                                                                $average =
+                                                                    $jumlahKriteria > 0
+                                                                        ? round($totalNilai / $jumlahKriteria, 2)
+                                                                        : 'N/A';
+                                                            @endphp
+                                                            {{ $average }}
+                                                        </p>
+                                                    @else
+                                                        {{-- Tampilkan pesan jika belum dinilai --}}
+                                                        <p class="text-sm text-yellow-500 font-semibold">Belum Dinilai
+                                                        </p>
+                                                    @endif
+
+                                                    <img src="{{ asset('assets/icons/check_circle.svg') }}"
+                                                        alt="Check Circle" class="cursor-pointer">
+                                                    <div
+                                                        class="absolute left-1/2 bottom-full mb-2 w-max px-2 py-1 text-xs text-white bg-black rounded opacity-0 group-hover:opacity-100 transform -translate-x-1/2 transition-opacity duration-300">
+                                                        Cek Tugas
+                                                        <div
+                                                            class="absolute left-1/2 top-full w-0 h-0 border-t-8 border-t-black border-r-8 border-r-transparent border-l-8 border-l-transparent transform -translate-x-1/2">
+                                                        </div>
+                                                    </div>
+                                                @else
+                                                    <p>Belum Mengumpulkan</p>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-chevron-down transition-transform"
-                        id="iconTwoPengembangan">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-            </h2>
-            <div id="collapseTwoPengembangan"
-                class="accordion-collapse rounded-b-xl border-x border-b border-grayScale-300 collapse text-black"
-                aria-labelledby="headingTwoPengembangan" style="display: none;">
-                <div class="accordion-body p-4">
-                    <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                    until the collapse plugin adds the appropriate classes that we use to style each
-                    element.
                 </div>
             </div>
-        </div>
-        <!-- Accordion Item 3 -->
-        <div class="accordion-item mb-3 rounded-b-xl" id="accordion-item-3-pengembangan">
-            <h2 class="accordion-header bg-primary text-white rounded-t-xl" id="headingThreePengembangan">
-                <button
-                    class="accordion-button flex justify-between items-center w-full p-4 text-left bg-gray-100 border-b transition-all ease-in-out focus:outline-none collapsed"
-                    type="button" data-toggle="collapse" data-target="#collapseThreePengembangan"
-                    aria-expanded="false">
-                    <div class="flex flex-col w-full">
-                        <span>Asesmen 3</span>
-                        <span class="text-lg font-medium">Deskripsi Asesmen 3</span>
-                        <div class="flex items-center mt-2 w-1/3">
-                            <div class="w-full bg-gray-300 rounded-full bg-white h-2.5 dark:bg-gray-700 relative">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%;"></div>
-                            </div>
-                            <span class="ml-2 text-sm font-medium">75%</span>
-                        </div>
-                    </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="feather feather-chevron-down transition-transform"
-                        id="iconThreePengembangan">
-                        <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                </button>
-            </h2>
-            <div id="collapseThreePengembangan"
-                class="accordion-collapse rounded-b-xl border-x border-b border-grayScale-300 collapse text-black"
-                aria-labelledby="headingThreePengembangan" style="display: none;">
-                <div class="accordion-body p-4">
-                    <strong>This is the third item's accordion body.</strong> It is hidden by default, until
-                    the collapse plugin adds the appropriate classes that we use to style each element.
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </div>
+
+
+
 <script>
     $(document).ready(function() {
         // Accordion functionality for Pengembangan Asesmen
@@ -139,5 +179,5 @@
         $('#accordionPengembangan .accordion-header').not('#headingOnePengembangan').addClass('rounded-b-xl');
 
         feather.replace();
-    });avbar
+    });
 </script>

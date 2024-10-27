@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="container-index w-full">
-        @include('diskusi.components.select')
+        {{-- @include('diskusi.components.select')
 
         <div class="py-5 flex items-center gap-3">
             <p class="text-lg font-medium">Urutkan Berdasarkan :</p>
             @include('diskusi.components.select-urutan')
-        </div>
+        </div> --}}
 
         <div id="discussionList" class="flex flex-col gap-5 pb-10">
             @foreach ($discussions as $discussion)

@@ -25,7 +25,7 @@
         @if (!in_array(Route::currentRouteName(), ['login', 'welcome']))
             @include('layouts.components.navbar.navbar')
         @endif
-        <div class="flex h-full">
+        <div class="flex">
             @if (in_array(Route::currentRouteName(), ['students.detail']))
                 @include('layouts.components.sidebar.sidebar')
             @endif

@@ -5,8 +5,11 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\DiskusiController;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\ModulController;
+use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\PostTestController;
+use App\Http\Controllers\PTKController;
 use App\Http\Controllers\PusherAuthController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -72,7 +75,7 @@ Route::middleware('guest')->group(function () {
 
 
 // Auth routes
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('index');
     })->name('home');
@@ -103,6 +106,15 @@ Route::middleware('auth')->group(function () {
     Route::put('/classwork/prinsip/post-test/{topic}/{modul}/{id}', [PostTestController::class, 'update'])->name('classwork.prinsip.post-test.update');
     Route::get('/classwork/{topic}/modul/{id}/post-test/edit', [PostTestController::class, 'edit'])->name('classwork.prinsip.post-test.edit');
 
+    // Route untuk halaman index utama yang menampilkan semua modul
+    Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
+
+    // Route untuk halaman dinamis berdasarkan topik dan modul
+    Route::get('/nilai/{topic}/{modul_id}', [NilaiController::class, 'topicIndex'])->name('nilai.topic.index');
+    Route::get('/nilai/detail/{modul_id}/{tugas_progress_id}', [NilaiController::class, 'detail'])->name('nilai.detail');
+    Route::post('/nilai/store/{id}', [NilaiController::class, 'storeDetail'])->name('nilai.storeDetail');
+
+
     // Task Routes
     Route::get('/{topic}/modul/{id}/task/create', [TaskController::class, 'create'])->name('classwork.prinsip.tugas.create');
     Route::post('/{topic}/modul/{id}/task', [TaskController::class, 'store'])->name('classwork.prinsip.tugas.store');
@@ -122,39 +134,41 @@ Route::middleware('auth')->group(function () {
 });
 
 
+// Route::get('/nilai/detail', function () {
+//     return view('nilai.detail_static');
+// })->name('nilai.detail.static');
+
+
+
 // PTK
-Route::get('/PTK', function () {
-    return view('ptk.index');
-})->name('ptk');
+Route::get('/PTK', [PTKController::class, 'index'])->name('ptk');
 
 // Students
-Route::get('/students', function () {
-    return view('students.index');
-})->name('students');
+Route::get('/students', [StudentController::class, 'index'])->name('students');
+Route::get('/students/detail/{id}', [StudentController::class, 'show'])->name('students.detail');
 
-Route::get('/students/detail', function () {
-    return view('students.detail.index');
-})->name('students.detail');
-
-
-
-
-// nilai
-Route::get('/nilai', function () {
-    return view('nilai.index');
-})->name('nilai');
+Route::put('/proposal/update-status/{id}', [PTKController::class, 'updateStatus'])->name('proposal.update-status');
+Route::put('/judul/update-status/{id}', [PTKController::class, 'updateStatusJudul'])->name('judul.update-status');
 
 Route::get('/nilai/modul', function () {
     return view('nilai.modul.index');
 })->name('nilai.modul');
 
-Route::get('/nilai/prinsip', function () {
-    return view('nilai.prinsip.index');
-})->name('nilai.prinsip');
+// nilai
+// Route::get('/nilai', function () {
+//     return view('nilai.index');
+// })->name('nilai');
 
-Route::get('/nilai/prinsip/detail', function () {
-    return view('nilai.prinsip.detail');
-})->name('nilai.prinsip.detail');
+
+// Route::get('/nilai/prinsip', function () {
+//     return view('nilai.prinsip.index');
+// })->name('nilai.prinsip');
+
+// Route::get('/nilai/prinsip/detail', function () {
+//     return view('nilai.prinsip.detail');
+// })->name('nilai.prinsip.detail');
+
+
 
 // Track
 Route::get('/track', function () {

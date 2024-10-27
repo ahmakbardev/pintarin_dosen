@@ -5,10 +5,10 @@
     </a>
     <div class="breadcrumb hidden md:flex gap-10 items-center justify-center w-full text-white">
         <a href="{{ route('home') }}" class="{{ request()->is('home*') ? 'font-bold' : '' }}">Classwork</a>
-        <a href="{{ route('students') }}" class="{{ request()->is('students.*') ? 'font-bold' : '' }}">Students</a>
+        <a href="{{ route('students') }}" class="{{ request()->is('students*') ? 'font-bold' : '' }}">Students</a>
         <a href="{{ route('diskusi') }}" class="{{ request()->is('diskusi*') ? 'font-bold' : '' }}">Diskusi</a>
-        <a href="{{ route('track') }}" class="{{ request()->is('track*') ? 'font-bold' : '' }}">Track</a>
-        <a href="{{ route('nilai') }}" class="{{ request()->is('nilai*') ? 'font-bold' : '' }}">Nilai</a>
+        {{-- <a href="{{ route('track') }}" class="{{ request()->is('track*') ? 'font-bold' : '' }}">Track</a> --}}
+        <a href="{{ route('nilai.index') }}" class="{{ request()->is('nilai*') ? 'font-bold' : '' }}">Nilai</a>
     </div>
     <div class="hidden md:flex search flex hover:cursor-pointer">
         <div class="w-14 aspect-square rounded-full relative" id="profile">
@@ -41,7 +41,7 @@
         class="py-2 {{ request()->is('students*') ? 'font-bold underline' : '' }}">Students</a>
     <a href="{{ route('diskusi') }}"
         class="py-2 {{ request()->is('diskusi*') ? 'font-bold underline' : '' }}">Diskusi</a>
-    <a href="{{ route('nilai') }}" class="py-2 {{ request()->is('nilai*') ? 'font-bold underline' : '' }}">Nilai</a>
+    <a href="{{ route('nilai.index') }}" class="py-2 {{ request()->is('nilai*') ? 'font-bold underline' : '' }}">Nilai</a>
 </div>
 
 <script>

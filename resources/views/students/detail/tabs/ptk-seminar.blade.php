@@ -1,33 +1,44 @@
-<div id="tab-ptk" class="tab-pane hidden max-h-[75vh]" data-simplebar>
-    <div class="grid grid-cols-2 bg-info-50 px-6 py-5 rounded-xl">
-        <div class="flex flex-col gap-3">
-            <div class="grid grid-cols-3">
-                <p class="text-grayScale-700 font-medium">Tanggal Pengajuan:</p>
-                <p class="text-grayScale-800 font-medium col-span-2">6 Januari 2024</p>
+<div id="tab-ptk-seminar" class="tab-pane hidden max-h-[75vh] px-4" data-simplebar>
+    <!-- Button to toggle bg-info-50 content -->
+    <button id="toggle-bg-info-50-seminar"
+        class="px-4 py-2 w-full bg-primary text-white text-xs font-medium rounded-t-lg">
+        Sembunyikan Informasi
+    </button>
+
+    <!-- Konten yang bisa di-hide atau tampil -->
+    <div id="bg-info-50-content-seminar" class=" bg-info-50 px-6 py-5 rounded-b-xl hidden">
+        <div class="grid grid-cols-2">
+            <div class="flex flex-col gap-3">
+                <div class="grid grid-cols-3">
+                    <p class="text-grayScale-700 font-medium">Tanggal Pengajuan:</p>
+                    <p class="text-grayScale-800 font-medium col-span-2">6 Januari 2024</p>
+                </div>
+                <div class="grid grid-cols-3">
+                    <p class="text-grayScale-700 font-medium">Tanggal dan Waktu:</p>
+                    <p class="text-grayScale-800 font-medium col-span-2">4 Februari 2024, 12.00 WIB</p>
+                </div>
+                <div class="grid grid-cols-3">
+                    <p class="text-grayScale-700 font-medium">Tempat Pelaksanaan:</p>
+                    <p class="text-grayScale-800 font-medium col-span-2">Zoom</p>
+                </div>
             </div>
-            <div class="grid grid-cols-3">
-                <p class="text-grayScale-700 font-medium">Tanggal dan Waktu:</p>
-                <p class="text-grayScale-800 font-medium col-span-2">4 Februari 2024, 12.00 WIB</p>
-            </div>
-            <div class="grid grid-cols-3">
-                <p class="text-grayScale-700 font-medium">Tempat Pelaksanaan:</p>
-                <p class="text-grayScale-800 font-medium col-span-2">Zoom</p>
-            </div>
-        </div>
-        <div class="flex flex-col gap-3">
-            <div class="grid grid-cols-3">
-                <p class="text-grayScale-700 font-medium">Judul:</p>
-                <p class="text-grayScale-800 font-medium col-span-2">Analisis Dan Perancangan UI/UX Pada Perpustakaan
-                    Berjalan</p>
-            </div>
-            <div class="grid grid-cols-3">
-                <p class="text-grayScale-700 font-medium">Persetujuan:</p>
-                <p class="px-3 py-2 w-fit rounded-lg bg-success-600 text-white font-medium col-span-2 uppercase">
-                    Disetujui</p>
-            </div>
-            <div class="grid grid-cols-3">
-                <p class="text-grayScale-700 font-medium">Link Meeting:</p>
-                <p class="text-grayScale-800 font-medium col-span-2">https://meet.google.com/tel/dwc-gwiq-nen?hs=1</p>
+            <div class="flex flex-col gap-3">
+                <div class="grid grid-cols-3">
+                    <p class="text-grayScale-700 font-medium">Judul:</p>
+                    <p class="text-grayScale-800 font-medium col-span-2">Analisis Dan Perancangan UI/UX Pada
+                        Perpustakaan
+                        Berjalan</p>
+                </div>
+                <div class="grid grid-cols-3">
+                    <p class="text-grayScale-700 font-medium">Persetujuan:</p>
+                    <p class="px-3 py-2 w-fit rounded-lg bg-success-600 text-white font-medium col-span-2 uppercase">
+                        Disetujui</p>
+                </div>
+                <div class="grid grid-cols-3">
+                    <p class="text-grayScale-700 font-medium">Link Meeting:</p>
+                    <p class="text-grayScale-800 font-medium col-span-2">https://meet.google.com/tel/dwc-gwiq-nen?hs=1
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -166,6 +177,30 @@
                 setTimeout(() => {
                     approvalOptions.classList.add('hidden');
                 }, 300); // Duration should match the transition duration
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        const seminarContent = $('#bg-info-50-content-seminar'); // ID dari content seminar yang ingin di-toggle
+        const toggleSeminarButton = $('#toggle-bg-info-50-seminar'); // ID dari tombol toggle untuk seminar
+
+        // Menampilkan konten pada refresh
+        seminarContent.slideDown("ease-in-out").addClass('show');
+        toggleSeminarButton.removeClass('rounded-t-lg').addClass('rounded-t-lg');
+
+        // Toggle untuk konten seminar
+        toggleSeminarButton.click(function() {
+            const isExpanded = seminarContent.hasClass('show');
+
+            if (isExpanded) {
+                seminarContent.slideUp("ease-in-out").removeClass('show');
+                toggleSeminarButton.removeClass('rounded-t-lg').addClass('rounded-lg').text(
+                    'Tampilkan Informasi');
+            } else {
+                seminarContent.slideDown("ease-in-out").addClass('show');
+                toggleSeminarButton.removeClass('rounded-lg').addClass('rounded-t-lg').text(
+                    'Sembunyikan Informasi');
             }
         });
     });
